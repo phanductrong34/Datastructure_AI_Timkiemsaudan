@@ -1,0 +1,707 @@
+///////////////////////////////// DATA STRUCTURE ////////////////////////////////
+
+Data-structure là 1 tập hợp các giá trị, mối quan hệ giữa chúng và các hàm, phép toán được áp dung lên data
+ta sẽ sử dụng class để viết ra dataStructure: như là 1 bản blueprint để tạp ro data với cáu trúc có sẵns
+
+
+* SINGLY LINK LIST:
+        - Định nghĩa: sigly link list khá tương đồng với array , với các đặc tính sau
+                + nó không có index cho bất cứ phần tử nào, không thể truy cập ngẫu nhiên phần tử thứ bao nhiêu
+                + nó có 3 giá trị quan trọng, head, tail và length, bao gồm các phần tử con là node, và mỗi con chứa thông tin trỏ tới node kế tiếp (node ở tail thì trỏ tới null)
+                + Hiểu DS đơn như là người leo thang bộ nhà cao tầng, muốn lên tầng 4 phải đi lần lượt từ  tầng 1-2-3-4, ko thể nháy cóc (trong khi array giống như đi thang máy, có thể gọi bất kì tầng bao nhiêu và lấy đc luôn)
+                + Chỉ có 1 chiều duy nhất là đi tiến, ko có biết đc thằng ở phía trước là gì 
+        - Ưu điểm: cực kì thuận lợi cho việc "insert" và "delete" data do ko hề phải trả giá với index (array mà thêm data vào giữa là thay đổi toàn bộ index đoạn sau), đặc biệt là thêm vào đàu cuối
+                Sử dụng khi ta cóc cần lấy ngẫu nhiên 1 giá trị nào đó, chỉ đơn thuần lưu data thôi (nghe giống các tin nhắn)
+        -BIG O 
+                Insertion: O(1)
+                Deletion: tùy O(1) hoặc O(n);
+                Searching: O(n);
+                Access(get) : O(n)
+
+* DOUBLY LINKDED LIST:
+        - Định nghĩa: thật ra nó giống y hệt như DS đơn, những node có thêm thuộc tính prev trỏ tới node ngay trước nó;
+                Tất cả ưu điểm của SinglyLinkList nó đều có hết, mỗi tội cần nhiều không gian để lưu trữ hơn ==> mọi thứ cần dánh đôi
+        - Ưu điểm:
+                các thao tác mà càn tìm tới phần tử có index thì sẽ nhanh hơn vì nó có thể duyệt bắt đàu từ tail và duyệt ngược về  
+        - BIG O :
+                Insertion: O(1)
+                Deletion: O(1) vì có thể chạy từ tail hay head đều là một lựa chọn
+                Searching: O(n);  có thể coi là O(n/2) nhưng mà vẫn giản ước lại về n
+                Access(get) : O(n)   
+        -ỨNG DỤNG:
+                - lịch sử duyệt web: có tiến và lùi trang ngay trước đó ==> lưu bằng aray sẽ không hợp lý trong thg này, vì ta có thể insert 1 nhánh mới ngay vào chính giữa
+
+* STACK
+        -Định nghĩa: stack đơn thuàn là 1 quy tắc cho việc trữ data mà thằng vào cuối cùng sẽ là thằng đàu tiên ra 
+        (LiFO)
+
+                tức ta có thể dùng array và build-in method của nó để tạo ra stack: các cặp pop() push()   và  shift() unshift() đều để tạo ra, nhưng shift unshift thì kém hiệu quả hơn vì nó phải re-index lại toàn bộ phần tử của nó;
+                và ở đây ta chỉ quan tâm tơi thằng cuối cùng được thêm vào là thằng nào ==> có thể implement các này bằng LINKED LIST ==> Single linked list
+        -ỨNG DỤNG: 
+                - actions history như trong ps
+                - tiến trình sử dụng hay thao tác rau người dùng;
+
+* QUEUE: 
+        -Định nghĩa: queue là theo quy tắc FIFO- thằng nào đợi trước thằng ấy được giải quyết trước;
+        - khác với stack, nếu sử dụng array để biêt diễn stack thì ta dùng cặp PUSH - SHIFT và UNSHIFT - POP
+
+        -ỨNG DỤNG: 
+                - giải quyết các tác vụ của máy tính;
+                - upload, download file;
+
+        BIG O cho cả hai cái này:
+                Insertion: O(1)
+                Deletion: O(1)
+                Searching: O(n);
+                Access(get) : O(n)  
+
+
+Tóm LẠI 3 THỨ CẦN CHÚ Ý KHI THAY đổi
+        HAI CON TRỎ HEAD VÀ TAIL
+        MQH GIỮA CÁC NODE (NEXT / PREV)
+        LENGTH
+
+////////////////////////////   TREE    ///////////////////////////////////////////
+
+        - Định nghĩa : Tree cũng là 1 cấu trúc bao gồm các node trong mối quan hệ parent/child;
+        - Sự khác biệt: List-linear còn Tree-nonlinear(nó có nhiều path, nhiều line, branch)
+                        SinglyLinkList là 1 "Special case" của Tree
+        - Các thuật ngữ:
+                + Root:  Node trên cùng của tree (ko có parent);
+                + Child: Node nối trực tiếp với node khác mà rời xa Root;
+                + Parent : ngược lại với child;
+                + Leaf: node mà không có child
+                + Siblings : tập hợp các node có cùng parent;
+                + Edge: cái MLK giữa 2 node vơi nhau
+        -Ứng dụng:
+                - HTML DOM
+                - Cấu trúc rẽ nhánh trong code;
+                - Trí tuệ nhân tạo
+                - lưu trữ file trong computer
+                - Json object
+        - Phân loại tree:
+                -  Trees
+                - Binary Trees: là tree những mỗi node chỉ có tối da 2 con
+                - Binary Search Trees: là Binary Trees có điều nó đã đc sort để thuận tiện cho việc tìm kiếm
+                                                + Mọi node con ở bên trái đều nhỏ hơn node cha
+                                                + Mọi node con ở bên phải đều lớn hơn node cha
+        - BIG O:
+               BinarySearchTree: 
+                        insertion: O(log(n));
+                        searching  O(log(n));
+
+                        tăng số lượng node lên gấp đôi thì số bước để search chỉ tăng lên 1 thôi !!!!!`
+
+        - TRAVERSAL: Visiting every node once
+                + BFS : BREADTH FIRST SEARCH: duyệt theo bề rộng:
+                        . 
+                + DFS : DEPTH FIRST SEARCH:  
+
+                + Trường hợp nào thì dùng thằng này thằng kia:
+                        . số lượng lệnh không đổi nên time complexity là như nhau; có space complexity là phụ thuộc vào cấu trusc cửa tree
+                        . Nếu tree rộng theo chiều ngang, ta sẽ duyệt sâu (DFS) vì dùng BFS queue sẽ chứa hàng đống giá trị do qua level nào là ném hết phần tử vào
+                        . Nếu tree dài theo chiều sâu, ta sẽ duyệt rộng (BFS) vì dùng DFS sẽ dẫn tới 1 đống callstack đợi nhau để pop ra và xử lý tiếp;
+                        
+/////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////  GRAPH ///////////////////////////////////////////
+
+        Định nghĩa: là tập hợp của các Nodes và các connections giữa chúng
+        Ứng dụng: Internet, maps. recommend và suggest của bất cứ trang web kiểu facebook, amazon, spotify, youtube có cơ chế gợi Ý;
+        Thuật ngữ:
+                - (V) Vertex : node 
+                - (E) Edge : connection giữa các Nodes
+                - (W/UƯ) Weight/Unweight: giá trị khoảng cách giữa các số ==> trọng só
+                - (D / UD) Directed / Undirected: có hướng hay vô hướng(cái vô hướng cũng có thể hiểu là mối quan hệ hai chiều, đi từ đâu cũng đc)
+                                                                        Vd: bạn bè trên facebook. hai người (2 cái Vertex) là bạn thì có đường vo hướng nối giữa 2 người;
+                                                                        vd: follow trên insta thì follow nhưng người kia ko follow lại thì là đồ thị 1 hướng thôi
+        
+/////////////////////////////// BINARY HEAPS //////////////////////////////////////////////////
+        ĐỊnh nghĩa: là 1 Binary tree, nhưng thỏa mãn   
+                - MaxBinaryHeap : thằng cha luôn luôn lớn hơn các thằng con
+                - MinBinaryHeap : thằng cha luôn nhỏ hơn các thằng con;
+
+                và hai thằng con trái phải ko CẦN có mối quan hệ gì, ko có thứ tự gì; 
+                là cây gần hoàn chỉnh: lệch trái tức các lá ko cách nhau quá 1 lever;
+        Ứng dụng: áp dụng vào bài toán Priority Queue, và graph traversal 
+
+        -Biểu diễn: Riêng Binary heaps dùng array để có thể biểu diễn đc với quy tắc
+                thằng bố ở n => hai con trái phải ở (2n+1) và (2n+2);
+                thằng con ở n ==> thằng bố ở [(n-1)/2]  => láy floor;
+        -BigO : insert O(logN); bởi ta chèn ở cuối rồi nổi dần lên thằng bố
+                delete O(logN); bởi ta swap đàu cuối rồi chìm xuống;
+                Searching O(N) bởi lẽ hai thằng con 0 ko liên hẹ lớn nhỏ với nhau, mà đc insert lệch trái ngay từ đầu ==> khi search ta phải đi qua tất cả phần tử, ko khác gì chạy loop qua array
+
+        
+        
+
+
+////////////////////////////////////// PRIORITY QUEUE ///////////////////////////////////////////
+        Định nghĩa: nó là 1 kiểu ứng dụng thực tế tiêu biểu nhất của heap bằng cách sắp xếp các phần tử vào heap dựa trên độ ưu tiên của nó, tất nhien vẫn lưu trũ dưới dạng array như là 1 heap
+
+        - Cái hay ở chỗ cho dù ta có insert vào heap theo trình tự nào, nhưng khi dequeue ra (hay chính là extract max) thì nó ra lần lượt theo thứ tự ưu tiên
+        -  ta thay tên insert thành enqueue, extractMax thành dequeue; thật ra nó chỉ hành xử giống như các bệnh nhân xếp hàng theo độ nặng của bệnh, dù bệnh nhân tới sau nhưng ca nặng hơn thì vẫn được ưu tiên cho khám trước
+
+        Ứng dụng: lưu trữ các thứ cần ưu tiên với 1 dạng vô cùng đơn giản là array, công thêm một chút toán là ta vun được đống thành công
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+SORTING ALGORITHM: đều là nhận vào 1 arr, trả ra 1 arr đc sort
+
+* BUILDIN JS SORT
+        - array.sort(callback)
+        - hàm callback này nhận vào hai parameters và trả ra giá trị âm, dương hay 0, hàm sort bên ngoài dựa vào giá trị đó để đặt para1 hay para2 trước
+        ==> (-) para1 para2,  (+) para2 para1 , (0) para1 para2
+
+        EXAMPLE
+        - function sortAccending(num1,num2){
+                return num1 -num2
+        }
+        --> nếu num1 < num2 (hay kết quả âm) thì num1 đặt trước num2
+
+        - function sortingDescending(num1,num2){
+                return num1 -num2
+        }
+
+* BUBBLE SORT
+        - mỗi một lượt sort, nó sẽ "nổi" giá trị lớn nhất xuống cuối cùng, và sau mỗi lượt sort ta có thể bỏ qua giá trị cuối cùng
+          hay sau mỗi lần sort, ta giảm length của arr đi 1 ở cuối
+        - visualize: ta sẽ đc sort từ đít đi lên
+        - VD SIMPLE SOLUTION
+
+                function bubbleSort(arr){
+                for(var i = arr.length; i > 0; i--){                    //sau mỗi vòng lặp thì giảm đi 1 vào số lần so sánh
+                        for(var j = 0; j < i -1; j++){                  // j sẽ lặp tới trước số cuối cùng 1 (vì ta lấy cả j và j + 1)
+                                if(arr[j] > arr[j+1]){
+                                        //SWAP
+                                        var temp = arr[j];
+                                        arr[j] = arr[j+1];
+                                        arr[j+1] = temp;
+                                }
+                        }
+                }
+                return arr;
+
+                }
+
+                bubbleSort([2,1,5,8,6,12,55,20,9,-3])  --> 10 số
+
+        - OPTIMIZE: trong trường hợp dãy cho đã đc sắp xếp gần hết, gần như ta chỉ cần tầm 3 bước là done, nhưng nó vẫn sẽ chạy  10.9.8.7... lần
+        ==> ta sẽ thêm 1 biến để check nếu sau mỗi vòng sort, ko có lần swap nào thì ta end loop ngoài cùng luôn
+
+                function bubbleSort(arr){
+         //       var noSwap = true
+                for(var i = arr.length; i > 0; i--){              
+                        for(var j = 0; j < i -1; j++){            
+                                if(arr[j] > arr[j+1]){
+                                        //SWAP
+                                        var temp = arr[j];
+                                        arr[j] = arr[j+1];
+                                        arr[j+1] = temp;
+        //                              noSwap = false
+                                }
+                        }
+        //              if (noSwap) break;
+                }
+                return arr;
+
+                }
+
+
+* SELECTION SORT 
+        - Mã giả: 
+                + Lưu giá trị đầu tiên của array làm min, sau đó chạy vòng lặp tới cuối của array, so sánh từng phần tử với biến min
+                + Trong quá trình lặp nếu có phần tử nhỏ hơn min, lưu lại vị trí index của min mới, và tiếp tục lặp tới hết
+                + Hết mỗi vòng lặp, nếu index của min mới khác với index đầu tiên, swap min mới và phần tử đầu array và dịch i lên 1 đơn vị
+                + tiếp tục lặp cho tới khi hàm đc sort
+        - visualize: ta sẽ đc sort từ đầu tới đít
+
+        - SOLUTION
+                function selectionSort(arr){
+                for(i = 0; i < arr.length; i++){
+                        var lowest = i;                        // coi vị trí đàu tiên có giá trị min
+
+                        for(j = i+1; j < arr.length; j++){
+                                if(arr[j] < arr[i]){                   //với i là vị trí của phần tử đầu tiên ta mặc định là min
+                                        lowest = j  
+                                        
+                                }
+                        }
+                        //swap
+                        if(lowest !== i){
+                                [arr[i],arr[lowest]] = [arr[lowest],arr[i]]
+                        }
+                        
+                }
+                console.log(arr);
+                return arr
+
+                }
+
+                selectionSort([2,1,5,8,6,12,55,20,9,-3])
+
+
+* INSERTION SORT
+                + Ta bắt đầu 2 vòng lặp từ phần tử index 1(giá trị thứ 2) và so sánh nó với giá trị ngay trước nó
+                + Nếu kết quả lớn hơn, oke và ta move on tới phần tử kế tiếp, còn nếu không (giá trị đang duyệt nhỏ hơn giá trị trước nó), ta nhảy vào 1 vòng lặp thứ 2 
+                + vòng lặp thứ 2 bắt đầu từ phần tử ngay trước giá trị đang duyệt (i) và lùi dần về 0;
+                + so sánh phần tử(j) đang đc loop ấy với phần tử đang duyệt(i), nếu a[j] > a[i] điều này hợp lệ, ta sẽ đẩy giá trị a[j] lên a[j+1] và mover on vòng lặp con tiếp theo (bước này tạo ra tiền đề để insert sau này)
+                + nếu a[j] < a[i], ta sẽ ko đẩy giá trị nữa, mà chèn a[i] vào chỗ a[j+1] luôn
+                + chạy hai vòng lặp lồng nhau thế cho tới khi  i chạm đít
+
+        visualize: ta sẽ thấy phần từ đc duyệt sẽ đc chen vào giữa các thằng ở trước nó, và duyệt ở phần tử nào, là chính xác vị trí ở đó
+
+
+        -SOLUTION 
+
+                function insertionSort(arr){
+                for (var i = 1; i < arr.length; i ++){
+                        var currentVal = arr[i];
+                        // có hai điều kiện để thoát loop con, hoặc ko thỏa mãn currentVal < arr[j], hoặc j đi tới 0 rồi
+                        for(var j = i-1; j >= 0 && currentVal < arr[j]; j--){
+                        arr[j+1] = arr[j];
+                        console.log(arr);
+                        }
+                        //thoát đc loop con rồi thì insert currentVal vào vị trí a[j]
+                        arr[j] = currentVal;
+                }
+                console.log(arr);
+                return arr
+                }
+
+                insertionSort([1,3,2,5,4]);
+                        
+
+--- SO SÁNH 3 LOẠI SORT ĐẦU
+        Với arr gần đc sort rồi
+        - bubbleSort: cũng khá hiệu quả khi ta có 1 biến check nếu ko còn swap nào xảy ra thì end luôn hàm
+        - selectionSort: Không hiệu quả lắm và tốn rất nhiều tg để đặt từng viên gạch lên đầu khi phải so sánh viên gạch đó với tất cả phần tử về sau
+        - insertionSort: vô dùng hiệu quả vì ta chỉ so sánh cái đang duyệt với phần tử ngay trước đó và insert vào chính xác vị trí ở trước ==> cách này khi ta thêm dữ liệu thì nó cũng chỉ tìm những cái ko đúng vị trí và đặt về thôi chứ ko sort lại toàn bộ cả array như selectionSort
+
+
+
+
+* MERGE SORT
+        -Psuedo Code:
+                + Ta chia làm 2 bài toán nhỏ, 1 là chia đôi array cho tới khi tận cùng còn 1 hoặc 0 phần tử ( vd mảng ban đầu 32 phần tử thì sẽ chia ra 32 array con chứa 1 phần tử)
+                + sau đo từ dưới cùng ta hợp lại dần dần lên trên bằng bài toán "merge 2 array" cho tới khi quay lại lên đỉnh thiểu
+
+        - SOLUTION
+                function merge(arr1,arr2){
+                //vòng lặp while so sánh hai phần tử của hai mảng
+                // cứ phần tử bên nào nhỏ hơn thì push vào mảng result và tăng con trỏ lên 1
+                // bất cứ thằng nào chạm vạch đích thì push nốt chỗ còn lại của mảng còn lại vào result
+
+                        let result = [];
+                        let i = 0;
+                        let j = 0;
+                        while(i < arr1.length && j < arr2.length){
+                                (arr1[i] < arr2[j])
+                                ? (result.push(arr1[i]), i++)
+                                : (result.push(arr2[j]), j++)
+                        }
+                        // thoát khỏi vòng lặp tức 1 thằng đã về đích
+                        // và sẽ nhảy vào 1 trong 1 vòng while dưới đây để push nốt đống còn lại
+                        while(i < arr1.length){
+                                result.push(arr1[i]);
+                                i++
+                        }
+                        while(j < arr2.length){
+                                result.push(arr2[j]);
+                                j++
+                        }
+                        console.log(result);
+                        return result
+                }
+
+                function mergeSort(arr){
+                        // chia đôi dãy liên tục cho tới khi chỉ còn 0 hoặc 1 phần tử của dãy
+                        // sau đó thoát dần ra và hợp 2 array trái phải vào bằng hàm merge ở trên
+                        
+                        //base case
+                        if(arr.length <= 1) return arr;
+                        
+                        let mid = Math.floor(array.length/2)
+                        let left = mergeSort(arr.slice(0,mid));
+                        let right = mergeSort(arr.slice(mid));
+                        
+                        return merge(left,right);
+                }
+
+                console.log(mergeSort([1,5,6,4,3,8,0,3,5,2,10,50,20,21,19,15,12,20]))
+
+        
+        // giải thích lại 1 chút cách hoạt động 
+                đầu tiên nó sẽ kiểm tra xem dãy có phần tử ít hơn hoặc bằng 1 hay ko, sau đó cắt đôi array ra
+                nó sẽ chia kịp tới right, mà nhảy sâu hơn vào left và cứ lệch trái như thế cho tới cuối cùng, rồi bắt đầu lấp dần bên right
+                mỗi lần 1 cặp left và right đc thiết lập thì move on tới hàm merge hai mảng 
+
+                return dần lên trên và mỗi bậc return ta có 1 mảng đc merge
+
+        // performance
+
+                Tất cả mọi case thì time complexity đều là O(nlog(n))
+                vì nó ko quan tâm tới việc gần sort hay chưa, kiểu gì cũng chia đôi tới tận cùng
+                log(n) là kiểu mảng có n = 32 phần tử thì mất 5 lần chia đôi 
+
+
+
+
+
+
+* QUICK SORT
+        -Psuedo code
+                + ta sử dụng 1 hàm con, gọi là pivot(arr,start = 0, length = arr.length + 1) nhận vào 1 array và hai con trỏ đầu và cuối trỏ vào cái array ấy
+                  nó sẽ return ra index mà phần tử đầu tiên của dãy cần phải chèn vào
+                + còn hàm bố sẽ làm nhiệm vụ hoán đổi vị trí của phần tử đầu tiên với phần tử vị trí đc trả ra ấy và recursive các bên trái phải
+
+                + ý tưởng là lấy phần tử đầu, duyệt hết tới cuối và xếp toàn bộ thằng nhỏ hơn sang trái, giữ thằng lớn hơn bên phải (thế là ta có phần tử đầu là 1 cái trục-pivot và 2 phía trái phải)
+                + cứ recursive cho từng phần trái phải như vậy là khi con trỏ trái phải sát sát ngay cạnh nhau (1 phần tử) là auto duyệt xong;
+
+        - SOLUTION
+
+                //hàm con này làm nhiệm vụ dịch toàn bộ giá trị nhỏ hơn về bên trái giá trị đầu
+                // đồng thời return ra index của giá trị pivot (trục ngăn cách trái phải) để làm mốc cho đệ quy hai bên tiếp
+                function pivot(arr, start = 0, end = arr.length){
+                //hàm swap đơn giản
+                function swap(arr,index1,index2){
+                        [arr[index1],arr[index2]] = [arr[index2],arr[index1]]
+                }
+                
+                let pivot = arr[start];
+                let swapIndex = start;
+
+                //1. đặt tất cả phần tử nhỏ hơn pivot về trước nó
+                for(let i = start + 1; i < end; i++){
+                        if(arr[i] <= pivot){
+                        swapIndex ++;    //con trỏ index tăng lên 1
+                        swap(arr,swapIndex,i);
+                        }    
+                }
+                //2. Thoát khỏi vòng for, có nghĩa nó duyệt hết phần tử rồi, ta tráo giá trị pivot(thằng vị trí start mà ta chọn làm trục) và giá trị ở vị trí swapIndex(vị trí của thằng bé hơn cuối cùng)
+                swap(arr,start,swapIndex);
+                return swapIndex
+                }
+
+                // pivot([4,1,3,5,7,0,2,4,6])
+
+                function quickSort(arr,start = 0, end = arr.length){
+
+                //3.Muốn recursive dừng lại phải có base case, dừng lại khi start = end (hai cái đầu mút để duyệt chạm nhau tức chỉ có 1 phần tử)
+                // cái này cũng check xem arr cho ban đầu là rỗng hoặc 1 phần tử thì return luôn;
+                if(start < end){
+                        //1. chạy hàm pivot lần đầu, để lấy đc 1 cái trục chia trái phải
+                        let separator = pivot(arr,start,end);
+
+                        //2. chạy lại hàm quickSort cho trái phải để liên tục tạo ra trục và chia trái phải và cố định vị trí các thằng trục ấy sau mỗi lần recursive
+                        quickSort(arr,0,separator);
+                        quickSort(arr, separator + 1,end);
+                }
+                //4. arr đã được mutate bởi các hàm pivot đc gọi trong recursive rồi nên tới đc dòng này tức đã out hết các stack  
+
+                return arr;
+
+                } 
+
+                console.log(quickSort([4,1,3,5,7,0,2,4,6,11,-1,-5,8,16,100,80,-90,-20]))
+
+        complexity:
+
+        Time: O(nlog(n)) vì mình cũng gọi là chia đôi và làm so sánh với n phần tử 
+
+
+
+* RADIX SORT
+        - Psuedo Code:
+                + là loại sort ko có bất cứ phép toán so sánh hai đối tượng nào, ta chỉ dựa vào bản chất số học thôi, và cái này cũng chỉ áp dụng đc cho 1 array số tự nhiên dương (ko áp dụng đc cho string, số âm, số thập phân)
+                + Ý tưởng: ta sẽ tìm tới từng chữ số hàng đơn vị, chục, trăm,.. của các phần tử số và xếp vào các bucket (là phần tử của 1 array). VD 1453 hàng đơn vị là 3 thì xếp 1453 vào array[3] hay bucket thứ 3
+                        sau mỗi vòng loop qua hết phần tử thế, ta lại hợp lại dãy, và next sang "hàng chục" và tiếp tục xếp chúng nó vào các bucket
+                        Loop với số lần bằng số chữ số lớn nhất của array( vd array có 41536 là số có nhiều chữ số nhất = 5 ==> 5 lần loop) thì ta sẽ có đc array đc sort mà ko hề làm phép so sánh nào
+
+                + HELPER METHOD: ta cần 1 số hàm phụ như sau:
+                        . getDigit(num,place) ==> input: 1 số, hàng nào => trả ra chữ số của hàng đó
+                        . digitCount(num)  ==> input 1 số, trả ra độ dài của số đó
+                        . mostDigit(num) ==> input 1 array số, trả ra độ dài lớn nhất trong số các phần tử của nó
+        
+        - SOLUTION
+                function getDigit(num,place){
+                return Math.floor(num/Math.pow(10,place))%10;
+                }
+                // (193403,2) => 4
+
+                function digitCount(num){
+                return Math.floor(Math.log10(num)) + 1;
+                }
+
+                // (519848) ==> 6
+
+                function mostDigit(array){
+                let maxCount = 0;
+                for(let i = 0; i < array.length; i++){
+                maxCount = Math.max(maxCount,digitCount(array[i]))  
+                }
+                return maxCount
+
+                }
+                // ([0,254,25,1,5898]) ==> 4
+
+                function radixSort(arr){
+                // tìm xem số lần lặp là bao nhiêu để sort thành công (= với số digit lớn nhất)
+                let maxCount = mostDigit(arr);
+
+                for(let i = 0; i < maxCount; i ++){
+                        //1. tạo mảng có 10 bucket rỗng
+                        let buckets = Array.from({length:10},() => []);
+                        //2. lần thứ i tức là duyệt tới hàng thứ i của tất cả phần tử trong dãy, sau đó xếp vào mảng
+
+                        for(let k = 0; k < arr.length; k++){
+                        let digit = getDigit(arr[k],i);   //trả ra giá trị của chữ số hàng k
+                        buckets[digit].push(arr[k]);
+                        }
+
+                        //3. sau khi xếp vào các bucket xong ,ta chắp lại ghi đè lên array cũ và tiếp tục cho vòng lặp tiếp theo
+                        arr = [].concat(...buckets); // ... để chuyển từ các subarray thành giá trị số
+
+
+                        
+                }
+                return arr
+                }
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////
+
+
+LINEAR SERARCH: 
+- loop qua tất cả phần tử và check xem nó thỏa mãn đk ko
+- ta có indexOf, find, findIndex, includes
+- BIG O:  O(n)
+
+BINARY SEARCH:
+- DIvide and conquer, và array phải SORTED
+- cái này sẽ có 2 con trỏ start, end  và thêm middle dựa vào start và end
+- có thể ko cần dùng recursion trong th này, 1 vòng while và liên tục update start, end, middle, còn array giữ nguyên cx đc
+
+                function binarySearch(arr,num){
+                let start = 0;
+                let end = arr.length -1
+                let middle = Math.floor((end + start)/2);
+                while(arr[middle] !== num && start <= end){
+                        if(num < arr[middle]) end = middle -1;
+                        else start = middle + 1;
+                        middle = Math.floor((end + start)/2);
+
+                }
+                return arr[middle] === num ? middle : -1;
+                
+                }
+- BIG O O(log(n)) vd 32 phần tử thì mất 5 bước
+
+////////////////////////////////////////////////////////////
+
+RECURSIVE:
+
+là 1 hàm tự gọi chính nó
+dấu hiệu (phải có):
+        -Base Case(hàm cơ sở): điều kiện dừng lại của recursive
+        -Different input: mỗi lần gọi hàm, vì đầu vào lại giảm dần (thay đổi)
+- cái này khác closure ở đoạn, closure pop call stack của hàm ra rồi, nhưng giá trị thì vẫn còn, 
+  còn recursive thì vẫn chồng call lên nhau, bao h đạt đỉnh thì pop dần dần;
+
+
+LỖI CÓ THỂ MẮC KHI VIẾT RECURSIVE
+        - base case return sai(thay vì return ra giá trị thì lại console.log) hoặc là ko return để thoát hàm luôn
+        - Không truyền input được thay đổi vào return hàm đó
+
+KĨ THUẬT HELPER METHOD:
+        - có 1 biến array hoặc object để lưu lại giá trị sau mỗi vòng đệ quy--> nằm ngoài hàm đệ quy
+        - bao ngoài biến đó và hàm đệ quy 1 hàm khác gọi là helper(truyền vào array)
+
+KĨ THUẬT PURE RECURSIVE
+        - chỉ có đúng 1 hàm đề quy và ta muốn mỗi lần gọi nó lại gọi ra 1 array rỗng --> sau qua nhánh if sẽ tiếp tục rỗng hoặc có 1 phần tử
+        - return của Different input ta dùng :
+                array.concat(recursive(array.slice[1]))
+                             --------------  chỗ này return ra array mới bị cắt phần tử đầu 
+                      ------                 chỗ này join array trong () và đằng trước nó với nhau
+                
+                                       
+/////////////////////////////////////////////////////////
+
+
+
+PROBLEM SOLVING PATTERN
+
+#1 Frequency counter -- đếm số lần xuất hiện
+        INPUT ko cần SORTED, OUTPUT thường là kiểm tra tần số xh giống nhau ko
+                - tạo tối thiểu 1 obj và dùng nó lưu số lần xuất hiện cùa phần tử
+                - loop qua cái thứ 2, soi vào obj1 và return thôi
+
+
+        SỦ DỤNG: for of (loop array), for in (loop obj), a in obj (kiểm tra có key a trong obj hay ko)
+        BIG O: O(n)
+
+#2 Multiple Pointer -- dùng hai con trỏ và dịch lần lượt
+        INPUT cần là SORTED
+        sử dụng 2 con trỏ i và j: 
+                - hoặc cùng ở trong 1 irritatte object(obj,str,array), hai thằng chạy đuổi nhau(2 thằng so với nhau, 1 thằng xếp gạch), ngược chiều nhau
+                - hoặc ở hai biến khác nhau, chạy ss
+        Kết thúc khi 1 trong 2 con trỏ chạm đít(cùng chiều) chạm nhau(khi chạy ngược chiều)
+        BIG O: O(n);
+
+
+#3 SLIDING WINDOW -- DỊCH CỬA (ĐẨY ĐÍT, THÒI ĐẦU)
+        INPUT ko cần SORTED, OUTPUT thường là tìm dãy con(các phần tử liên tiếp), có tổng thỏa mãn gì đó
+        Sử dụng cửa sổ đầu và cuối:
+                - nếu cho sẵn độ dài cửa ( vd: 2 - số phần tử dãy con) --> thì chỉ việc chặt đít thêm đầu
+                - nếu độ dài bất kì, thì đầu và đit chạy song song tách biệt, có thể cùng trỏ 1 cái
+        Kết thúc khi đít cửa sổ chạm length
+
+        BIG O: O(n);
+#4 DIVIDE AND CONQUER
+        BIG O: O(log(n));
+
+/////////////////////////////////////////////////////////
+
+- độ phức tạp của 1 program đc đánh giá = số phép toán đc thực hiện và không gian dành ra để thực hiện thuật toán đó
+
+BIG O NOTATION
+
+một loại hàm để làm cơ sở đánh giá mức độ hiệu quả tương đối giữa các chương trình khác nhau
+rằng runtime(thời gian thực hiện) và space(không gain lưu tữu) sẽ có 'xu hướng ' gia tăng thế nào khi lượng phép toán tiến tới n vô cùng 
+
+
+_______O() cho time
+ta có thể có 1 số quy tắc lược bỏ như sau
+- các phép toán sô học (+ = / *) là constant
+- việc gán biến là constant
+- truy cập phần từ của array và truy cập key của object có tg như nhau
+- độ phức tạp của vòng lặp for = length( số lần lặp) * độ phức tạp bên trong vòng for đó
+  
+- áp dụng các kiểu ngắt bỏ VCL bậc thấp
+
+----> phải giản ước đc trở thành các dạng O(n) O(1) O(n^2 )
+
+______O() cho space
+ 
+- bỏ qua bộ nhớ dành cho input là "số" vì 1 hay 5000 thì bộ nhớ cho nó cũng ko thay đổi trong suốt quá trình --> O(1)
+
+- lượng bộ nhớ cho array n phần tử, object n key là O(n)
+-------------------------
+
+từ bây h hiểu log(a) là số lần a có thể chia đc cho 2 để về kết quả <= 1 
+
+
+----------TỔNG KẾT----------------------------------
+- Để đánh giá performance của 1 thuật taosn, ta dùng big O notation
+- BIG O NOTATION cho chúng ta hiểu sâu về độ phức tạp space và time của 1 thuật toán
+- BIG O ko care tới sự chính xác, mà tới xu hướng( linear, quadric,constant)
+- Thời gian không gian( tính = BIG O) phụ thuộc vào thuật toán, ko phụ thuộc vào phần cứng
+
+
+
+
+
+
+
+PROBLEM SOLVING TECHNIQUE
+
+- UNDERSTAND THE PROBLEM: 
+        + Có thể diễn đạt lại câu hỏi = lời của mình ko?
+        + input là gì
+        + Output là những gì
+        + có đủ dữ liện từ input để giải ra output ko
+        + mình đặt tên các dữ liệu quan trọng thế nào
+
+- CONCRETE EXAMPLE: 
+        + Bắt đầu với các input đơn giản --> ghi ra kết quả + dạng kết quả mong muốn
+        + Tăng tiến với các input phức tạp hơn ( vd string thì có chữ hoa, chữ thường, số, dấu cách, kí tự đặc biệt)
+        + Input là rỗng thì sao (người nhập bỏ trống?) --> handle lỗi ra sao
+        + Input không hợp lệ thì sao? (chữ khựa, nhật ?)
+
+- BREAK IT DOWN: 
+        + ghi ra cụ thể từng bước giải (//commnent thế này)
+        --> việc này ép ta nghĩ toàn bộ bài toán trước khi đi vào chi tiết (cú pháp ngôn ngữ), và biết đc vấn đề gây khó dễ nằm ở đâu
+
+- SOLVE / SIMPLYFY: 
+        + Giải bằng ngôn ngữ --> viết code
+        + cố lờ đi chỗ gây khó khăn và viết tiếp, chúng ta có thể lật lại và giải quyết ở cuối cùng
+
+- LOOKBACK / REFACTORING: nhìn lại code của mình
+        + Có check đc kết quả ko (tức code có hoạt động ko)
+        + Có thể tiếp cận cách khác đc ko, hoặc vẫn cách đấy mà giảm bớt bước phải thực hiện đi
+        + Code nhìn liếc qua có dễ hiểu ko;
+        + Có thể sử dụng kết quả hoặc method này cho các trường hợp khác đc ko
+        + Có thể cải thiện performance phần giải của mình ko
+        + Những người trên mạng, họ có cách giải nào khác mình ko ?
+
+
+////////////////////////////////////////
+
+BREAK IT DOWN
+
+dùng giả ngôn ngữ: 
+LẶP////////////////////////////////////////////////////////
+        repeat
+                dãy câu lệnh;
+        until condition;
+
+
+        for i = n1 to n2 [step d]
+                dãy câu lệnh;
+        endfor;
+
+
+câu lệnh case: ////////////////////////////////////////////
+
+        case   
+                cond1: stat 1;
+                cond2: stat2;
+                .
+                .
+                .
+                condn: statn
+
+        endcase;
+
+INPUT-OUTPUT   ////////////////////////////////////////////
+
+        read(X); /*X là biến đơn hoặc mảng/
+
+        print(data) hoặc print(thông báo);
+
+HÀM - THỦ TỤC (hàm ko có giá trị trả về) /////////////////
+
+        Funtion name(tham số)
+        begin 
+                mô tả biến;
+                các câu lệnh;
+                return(giá trị)
+        end;
+
+        Procedure name(các tham số)
+        begin
+                mô tả biến;
+                các câu lệnh
+
+        end;
+
+// hàm tìm max
+
+Function max(A(1:n))
+begin 
+        datatype x; // lưu giá trị lớn nhất vào đây
+        integer i;
+        x = A[1];
+        for i = 2 to n do
+                if x < A[i] then
+                x = A[1];
+                endif
+        endfor;
+        return(x);d
+end max;
+                

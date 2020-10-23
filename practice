@@ -1,0 +1,70 @@
+//bài toán viết 1 hàm nhận 2 array, trả ra true nếu măng này có tần số xuất hiện các phần tử bằng với mảng kia nhưng bình phương lên
+
+vd : same([1,4,2],[4,1,16]) ---> true
+    same([1,2,4],[1,4])   --> false vì ko đủ tần suất xuất hiện
+
+    
+
+
+
+
+
+
+
+// tìm số nguyên tố lớn hơn sô nguyên dương n 
+
+funtion is_prime(interger n)         ----> xem n có phải SNT Ko
+    begin
+        interger i;
+        for i = 2 to sqrt(n) [step 1]
+            if (n % i) == 0 then
+                return false;
+            endif;
+        endfor
+
+        return true;
+    end is_prime
+
+function Find (n,boolean is_prime(n)) ----> xem n có ước nào là số nto ko
+begin 
+    if is_prime(n) then
+    integer i;
+        for i = n-1 to sqrt(n) [step -1]
+            if (n % i) == 0 then
+                return false;
+            else 
+                continue;
+            endif;
+        endfor
+end Find
+    
+CHỮAAAAA
+
+ta có bài toán con check n có phải nguyên tố ko;
+
+        input: số nguyên dương m 
+        Output Is_prime(m); true nếu là snt, false nếu ko là số nt
+
+        function Is_prime(m)          //hàm nhận 1 biến n đầu vào
+        begin 
+            i = 2;                    // bỏ qua số 1, bắt đầu từ số 2
+            while (i*i <= m) and (m mod i != 0) do i=i+1;     // lặp liên tục chừng nào i chưa lớn hơn căn n và n chưa chia hết cho i; và nếu ko thỏa mãn nữa, ta có i rồi
+            Is_prime = i > sqrt(m)                           //  nếu i vượt quá căn n thì trả false, i < căn n thì trả true
+
+        end Is_prime
+
+
+HÀM THỦ TỤC
+
+        input:     số nguyên dương n 
+        output:    m : số nguyên tố lơn hơn n
+
+        procudure Large_prime(n)               // hàm này cũng chỉ nhận 1 đầu vào n thôi     
+        begin  
+            m = n+1                            // bắt đầu từ thằng m+1 
+            while not Is_prime(m) do m = m+1   // lặp liên tục nếu ko phải nguyên tố, cuối lặp thì tăng m lên
+        end;
+
+ 1 
+
+ 
